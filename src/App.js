@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './components/List';
 
-function App() {
+const App = () => {
 	return (
 		<div className='todo'>
 			<div className='todo__sidebar'>
