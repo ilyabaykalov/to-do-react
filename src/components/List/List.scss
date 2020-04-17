@@ -1,0 +1,52 @@
+.list {
+  margin: 30px 15px 0;
+
+  li {
+    display: flex;
+    align-items: center;
+
+    padding: 10px 12px;
+    margin-bottom: 5px;
+
+    cursor: pointer;
+
+    &.active {
+      background: #FFFFFF;
+
+      border-radius: 4px;
+
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .icon {
+      width: 15px;
+      height: 15px;
+
+      margin-right: 10px;
+    }
+
+    .badge {
+      width: 10px;
+      height: 10px;
+
+      position: relative;
+      left: 1.5%;
+
+      margin-right: 15px;
+
+      border-radius: 50%;
+
+      &--green {
+        background-color: #42B883;
+      }
+
+      &--purple {
+        background-color: #931DE7;
+      }
+
+      &--pink {
+        background-color: #ED8CF1;
+      }
+    }
+  }
+}

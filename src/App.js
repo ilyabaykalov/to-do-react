@@ -1,14 +1,25 @@
 import React from 'react';
-import List from './components/List/List';
+import List from './components/List';
 
 function App() {
 	return (
 		<div className='todo'>
 			<div className='todo__sidebar'>
-				<List items={[{
+				<List items={ [{
 					icon: { name: 'list', color: '#7C7C7C' },
-					name: 'Все задачи'
-				}]}/>
+					name: 'Все задачи',
+					active: true
+				}] }/>
+				<List items={ [{
+					color: 'green',
+					name: 'Покупки'
+				}, {
+					color: 'purple',
+					name: 'Фронтенд'
+				}, {
+					color: 'pink',
+					name: 'Домашка'
+				}] }/>
 			</div>
 			<div className='todo__tasks'>
 

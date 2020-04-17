@@ -6,43 +6,42 @@
   font-family: 'Roboto', -apple-system, system-ui, sans-serif;
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .todo {
+  display: flex;
+
+  width: 800px;
+  height: 550px;
+
   position: absolute;
-  left: 50%;
   top: 50%;
-  width: 750px;
-  height: 530px;
-  transform: translate(-50%, -50%);
-  box-shadow: 1px 2px 20px #F1ECEC;
-  border-radius: 10px;
-  border: 1px solid #F4F6F8;
+  transform: translate(0, -50%);
+
   font-size: 14px;
 
+  border: 1px solid #F4F6F8;
+  border-radius: 10px;
+  box-shadow: 1px 2px 20px #F1ECEC;
+
   &__sidebar {
-    background-color: #F4F6F8;
-    width: 200px;
+    width: 300px;
     height: 100%;
+
+    background-color: #F4F6F8;
+
     border-right: 1px solid #FFFFFF;
-    padding: 60px 20px;
   }
 
-  &__list {
-    li {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      padding: 10px 12px;
-      margin-bottom: 5px;
+  &__tasks {
+    width: 100%;
+    height: 100%;
 
-      &.active {
-        background: #FFFFFF;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
-        border-radius: 4px;
-      }
-    }
+    background-color: #FFFFFF;
 
-    span{
-      margin-left: 10px;
-    }
+    border-right: 1px solid #FFFFFF;
   }
 }
