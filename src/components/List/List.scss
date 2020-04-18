@@ -8,6 +8,8 @@
     padding: 10px 12px;
     margin-bottom: 5px;
 
+    font-size: 12pt;
+
     cursor: pointer;
 
     &.active {
@@ -46,6 +48,18 @@
 
       &--pink {
         background-color: #ED8CF1;
+      }
+    }
+  }
+
+  &__add-button {
+    color: #7C7C7C;
+
+    &:hover {
+      color: #000000;
+
+      .icon {
+        color: #000000;
       }
     }
   }

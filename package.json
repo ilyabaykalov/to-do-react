@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "classnames": "^2.2.6",
     "node-sass": "^4.13.1"
   },
   "dependencies": {
