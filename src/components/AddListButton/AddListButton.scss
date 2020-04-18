@@ -1,0 +1,39 @@
+.add-list {
+  &__button {
+    color: #7C7C7C;
+
+    &:hover {
+      color: #000000;
+
+      .icon {
+        color: #000000;
+      }
+    }
+  }
+
+  &__popup {
+    width: 270px;
+    height: 170px;
+    padding: 20px 20px 0 20px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.05);
+
+    .button {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .colors {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 12px;
+
+      .badge {
+        width: 20px;
+        height: 20px;
+        margin: 0;
+      }
+    }
+  }
+}

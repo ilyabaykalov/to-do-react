@@ -1,0 +1,19 @@
+.badge {
+  display: flex;
+  width: 12px;
+  height: 12px;
+  margin-right: 13px;
+  border-radius: 50%;
+
+  &--green {
+    background-color: #42B883;
+  }
+
+  &--purple {
+    background-color: #931DE7;
+  }
+
+  &--pink {
+    background-color: #ED8CF1;
+  }
+}

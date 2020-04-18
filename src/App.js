@@ -1,5 +1,8 @@
 import React from 'react';
 import List from './components/List';
+import AddListButton from './components/AddListButton';
+
+import database from './assets/database.json'
 
 const App = () => {
 	return (
@@ -22,13 +25,7 @@ const App = () => {
 						name: 'Домашка'
 					}
 				] } isRemovable/>
-				<List items={ [
-					{
-						className: 'list__add-button',
-						icon: { name: 'plus', color: '#7C7C7C' },
-						name: 'Добавить список'
-					}
-				] }/>
+				<AddListButton colors={database.colors}/>
 			</div>
 			<div className='todo__tasks'>
 
