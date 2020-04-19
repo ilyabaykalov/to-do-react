@@ -11,8 +11,13 @@ import './List.scss';
 
 library.add(fas);
 
-const List = ({ items, isRemovable, onClick }) => {
-	return <ul className='list' onClick={ onClick }>
+const List = ({ items, isRemovable, onSelect, onRemove }) => {
+
+	const removeList = (id) => {
+		onRemove(id);
+	};
+
+	return <ul className='list' onClick={ onSelect }>
 		{ items.map((item, index) =>
 			<li key={ index }
 			    className={ classNames({ active: item.active }) }>
@@ -23,9 +28,12 @@ const List = ({ items, isRemovable, onClick }) => {
 					<Badge color={ item.color }/>
 				}
 				<span>{ item.name }</span>
-				{ isRemovable && <FontAwesomeIcon className={ 'list__remove-button' }
-				                                  icon={ 'times' }
-				                                  color={ '#E3E7E7' }/>
+				{
+					isRemovable &&
+					<FontAwesomeIcon className={ 'list__remove-button' }
+					                 icon={ 'times' }
+					                 color={ 'transparent' }
+					                 onClick={ () => removeList(item.id) }/>
 				}
 			</li>
 		) }

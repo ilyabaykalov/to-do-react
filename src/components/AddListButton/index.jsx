@@ -11,13 +11,33 @@ import './AddListButton.scss';
 
 library.add(fas);
 
-const AddListButton = ({ colors }) => {
-	const [isVisiblePopup, setVisibilityPopup] = useState(true);
+const AddListButton = ({ colors, onAdd }) => {
+	const [isVisiblePopup, setVisibilityPopup] = useState(false);
 	const [selectedColor, selectColor] = useState(colors[0].id);
+	const [listNameInputValue, setListNameInputValue] = useState('');
+
+	const onClose = () => {
+		setListNameInputValue('');
+		setVisibilityPopup(false);
+		selectColor(colors[0].id);
+	};
+
+	const addList = () => {
+		if (!listNameInputValue) {
+			alert('Введите название списка');
+			return;
+		}
+		onAdd({
+			id: Math.round(Math.random() * 100) + 10,
+			name: listNameInputValue,
+			colorId: selectedColor
+		});
+		onClose();
+	};
 
 	return (
 		<div className='add-list'>
-			<List onClick={ () => setVisibilityPopup(true) }
+			<List onSelect={ () => setVisibilityPopup(true) }
 			      items={ [
 				      {
 					      className: 'add-list__button',
@@ -30,10 +50,12 @@ const AddListButton = ({ colors }) => {
 					<FontAwesomeIcon className={ 'add-list__popup__close-button' }
 					                 icon={ 'times-circle' }
 					                 color={ '#7F7E7E' }
-					                 onClick={ () => setVisibilityPopup(false) }/>
-					<input className='field'
+					                 onClick={ onClose }/>
+					<input className='field' autoFocus
 					       type='text'
-					       placeholder='Название списка'/>
+					       placeholder='Название списка'
+					       value={ listNameInputValue }
+					       onChange={ event => setListNameInputValue(event.target.value) }/>
 					<div className='add-list__popup__colors'>
 						{ colors.map(color => (
 							<Badge key={ color.id }
@@ -43,7 +65,7 @@ const AddListButton = ({ colors }) => {
 							/>
 						)) }
 					</div>
-					<button className='button'>Добавить</button>
+					<button className='button' onClick={ addList }>Добавить</button>
 				</div>)
 			}
 		</div>
