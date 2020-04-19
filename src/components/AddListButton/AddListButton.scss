@@ -21,12 +21,13 @@
     background: #FFFFFF;
     border-radius: 10px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    position: relative;
 
     .button {
       width: 100%;
     }
 
-    &-colors {
+    &__colors {
       display: flex;
       justify-content: space-between;
 
@@ -40,6 +41,15 @@
       .active {
         border: 3px solid transparent;
       }
+    }
+
+    &__close-button {
+      width: 25px !important;
+      height: 25px;
+      position: absolute;
+      right: -12px;
+      top: -12px;
+      cursor: pointer;
     }
   }
 }
