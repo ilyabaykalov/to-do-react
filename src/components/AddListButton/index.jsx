@@ -7,7 +7,9 @@ import './AddListButton.scss';
 
 const AddListButton = ({ colors }) => {
 	const [isVisiblePopup, setVisibilityPopup] = useState(true);
+	const [selectedColor, selectColor] = useState(colors[0].id);
 
+	console.log(selectedColor);
 	return (
 		<div className='add-list'>
 			<List onClick={ () => setVisibilityPopup(true) }
@@ -20,10 +22,18 @@ const AddListButton = ({ colors }) => {
 			      ] }/>
 			{ isVisiblePopup && (
 				<div className='add-list__popup'>
-					<input className='field' type='text' placeholder='Название списка'/>
-					<ul className='colors'>
-						{ colors.map(color => <li><Badge color={ color.name }/></li>) }
-					</ul>
+					<input className='field'
+					       type='text'
+					       placeholder='Название списка'/>
+					<div className='add-list__popup-colors'>
+						{ colors.map(color => (
+							<Badge key={ color.id }
+							       className={ selectedColor === color.id && 'active' }
+							       color={ color.name }
+							       onClick={ () => selectColor(color.id) }
+							/>
+						)) }
+					</div>
 					<button className='button'>Добавить</button>
 				</div>)
 			}
