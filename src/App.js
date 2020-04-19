@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import List from './components/List';
 import AddListButton from './components/AddListButton';
+import Tasks from './components/Tasks';
 
 import database from './assets/database.json';
 
@@ -32,7 +33,7 @@ const App = () => {
 				               onAdd={ onAddList }/>
 			</div>
 			<div className='todo__tasks'>
-
+				<Tasks/>
 			</div>
 		</div>
 	);
