@@ -8,7 +8,15 @@ import './Tasks.scss';
 
 library.add(fas);
 
-const Tasks = ({ listName, tasks }) => {
+const Tasks = ({ listName, tasks, onRemove }) => {
+	const onChecked = (id) => {
+		alert(id);
+	};
+
+	const onRemoveTask = (id) => {
+		onRemove(id);
+	};
+
 	return (
 		<div className='tasks'>
 			<div className='tasks__header'>
@@ -22,7 +30,10 @@ const Tasks = ({ listName, tasks }) => {
 					tasks.map(task => {
 							return <div key={ task.id } className='item'>
 								<div className='checkbox'>
-									<input id='check' type='checkbox' checked={ task['completed'] }/>
+									<input id='check'
+									       type='checkbox'
+									       defaultChecked={ task['completed'] }
+									       onChange={ () => onChecked(task.id) }/>
 									<label htmlFor='check'>
 										<FontAwesomeIcon className='item__complete-button'
 										                 icon='check'
@@ -33,7 +44,7 @@ const Tasks = ({ listName, tasks }) => {
 								<FontAwesomeIcon className={ 'item__remove-button' }
 								                 icon={ 'times' }
 								                 color={ 'transparent' }
-								                 onClick={ () => alert(1) }/>
+								                 onClick={ () => onRemoveTask(task.id) }/>
 							</div>;
 						}
 					)

@@ -2,21 +2,20 @@
 
   &__header {
     display: flex;
-    align-items: center;
     border-bottom: 1px solid #F2F2F2;
 
     &__title {
       font-family: Montserrat, serif;
       font-weight: bold;
       font-size: 32pt;
-      line-height: 40px;
+      line-height: 40pt;
       color: #64C4ED;
       padding-bottom: 20px;
     }
 
     &__list-name-edit-button {
-      font-size: 16pt;
-      margin-left: 10px;
+      font-size: 18pt;
+      margin: 10px 0 0 auto;
 
       &:hover {
         color: darken(#E3E7E7, 20%);

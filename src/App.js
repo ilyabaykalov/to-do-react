@@ -7,6 +7,7 @@ import database from './assets/database.json';
 
 const App = () => {
 	const [lists, updateLists] = useState(database.lists);
+	const [taskList, updateTaskList] = useState(database.tasks);
 	const [selectedListId, setListId] = useState(2);
 
 	const onAddList = (newList) => {
@@ -21,6 +22,10 @@ const App = () => {
 		setListId(id);
 	};
 
+	const onRemoveTask = (id) => {
+		updateTaskList(taskList.filter(task => task.id !== id));
+	};
+
 	return (
 		<div className='todo'>
 			<div className='todo__sidebar'>
@@ -31,18 +36,19 @@ const App = () => {
 				<List items={
 					lists.map(list => {
 						list.color = database.colors.find(color => color.id === list['colorId']).name;
-						list.active = list.id === selectedListId
+						list.active = list.id === selectedListId;
 						return list;
 					}) }
-				      onSelect={onSelectListId}
+				      onSelect={ onSelectListId }
 				      onRemove={ onRemoveList }
 				      isRemovable/>
 				<AddListButton colors={ database.colors }
 				               onAdd={ onAddList }/>
 			</div>
 			<div className='todo__tasks'>
-				<Tasks listName={ database.lists.find(list => list.id === selectedListId).name }
-				       tasks={ database.tasks.filter(task => task['listId'] === selectedListId) }/>
+				<Tasks listName={ lists.find(list => list.id === selectedListId).name }
+				       tasks={ taskList.filter(task => task['listId'] === selectedListId) }
+				       onRemove={ onRemoveTask }/>
 			</div>
 		</div>
 	);
