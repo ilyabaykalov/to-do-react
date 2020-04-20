@@ -13,14 +13,19 @@ library.add(fas);
 
 const List = ({ items, isRemovable, onSelect, onRemove }) => {
 
+	const selectList = (id) => {
+		onSelect(id);
+	};
+
 	const removeList = (id) => {
 		onRemove(id);
 	};
 
-	return <ul className='list' onClick={ onSelect }>
+	return <ul className='list'>
 		{ items.map((item, index) =>
 			<li key={ index }
-			    className={ classNames({ active: item.active }) }>
+			    className={ classNames({ active: item.active }) }
+				onClick={ () => selectList(item.id) }>
 				{ item.icon ?
 					<FontAwesomeIcon className={ 'icon' }
 					                 icon={ item.icon.name }

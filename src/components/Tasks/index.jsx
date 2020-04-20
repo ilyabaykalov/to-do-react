@@ -8,24 +8,36 @@ import './Tasks.scss';
 
 library.add(fas);
 
-const Tasks = () => {
+const Tasks = ({ listName, tasks }) => {
 	return (
 		<div className='tasks'>
 			<div className='tasks__header'>
-				<h2 className='tasks__header__title'>Фронтенд</h2>
+				<h2 className='tasks__header__title'>{ listName }</h2>
 				<FontAwesomeIcon className='tasks__header__list-name-edit-button'
 				                 icon='pen'
 				                 color='#E3E7E7'/>
 			</div>
 			<div className='tasks__items'>
-				<div className='item'>
-					<input id='check' type='checkbox'/>
-					<label htmlFor='check'>
-						<FontAwesomeIcon className='item__complete-button'
-						                 icon='check'
-						                 color='#FFFFFF'/>
-					</label>
-				</div>
+				{
+					tasks.map(task => {
+							return <div key={ task.id } className='item'>
+								<div className='checkbox'>
+									<input id='check' type='checkbox' checked={ task['completed'] }/>
+									<label htmlFor='check'>
+										<FontAwesomeIcon className='item__complete-button'
+										                 icon='check'
+										                 color='#FFFFFF'/>
+									</label>
+								</div>
+								<p>{ task.text }</p>
+								<FontAwesomeIcon className={ 'item__remove-button' }
+								                 icon={ 'times' }
+								                 color={ 'transparent' }
+								                 onClick={ () => alert(1) }/>
+							</div>;
+						}
+					)
+				}
 			</div>
 		</div>
 	);

@@ -36,6 +36,10 @@
         height: 25px;
         margin: 0;
         border: 3px solid #FFFFFF;
+
+        &:hover {
+          border: 3px solid transparent;
+        }
       }
 
       .active {

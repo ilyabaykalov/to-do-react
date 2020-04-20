@@ -26,7 +26,21 @@
   }
 
   &__items {
+    margin-top: 30px;
+
     .item {
+      margin: 10px 0;
+      display: flex;
+
+      .checkbox {
+        align-self: center;
+      }
+
+      p {
+        align-self: center;
+        margin-left: 10px;
+      }
+
       input {
         display: none;
       }
@@ -39,6 +53,7 @@
         height: 20px;
         border: 2px solid #E3E7E7;
         border-radius: 50%;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 
         &:hover {
           background: #E3E7E7;
@@ -51,9 +66,26 @@
         border: 2px solid #5EBF77;
       }
 
-      &__complete-button{
+      &__complete-button {
         width: 12px;
         height: 12px;
+      }
+
+      &__remove-button {
+        width: 15px;
+        height: 15px;
+        align-self: center;
+      }
+
+      &:hover {
+        .item__remove-button {
+          color: #E3E7E7;
+          margin-left: auto;
+
+          &:hover {
+            color: darken(#E3E7E7, 20%);
+          }
+        }
       }
     }
   }
