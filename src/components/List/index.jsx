@@ -1,13 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import { Badge } from '../../components';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import Badge from '../Badge';
-
 import './List.scss';
+import axios from 'axios';
 
 library.add(fas);
 
@@ -18,14 +19,16 @@ const List = ({ items, isRemovable, onSelect, onRemove }) => {
 	};
 
 	const removeList = (id) => {
-		onRemove(id);
+		axios.delete(`http://localhost:3001/lists/${ id }`).then(() => {
+			onRemove(id);
+		});
 	};
 
 	return <ul className='list'>
 		{ items.map((item, index) =>
 			<li key={ index }
 			    className={ classNames({ active: item.active }) }
-				onClick={ () => selectList(item.id) }>
+			    onClick={ () => selectList(item.id) }>
 				{ item.icon ?
 					<FontAwesomeIcon className={ 'icon' }
 					                 icon={ item.icon.name }

@@ -4,6 +4,17 @@
     display: flex;
     border-bottom: 1px solid #F2F2F2;
 
+    &:hover {
+      .tasks__header__list-name-edit-button {
+        color: #E3E7E7;
+
+        &:hover {
+          color: darken(#E3E7E7, 20%);
+          cursor: pointer;
+        }
+      }
+    }
+
     &__title {
       font-family: Montserrat, serif;
       font-weight: bold;
@@ -16,11 +27,6 @@
     &__list-name-edit-button {
       font-size: 18pt;
       margin: 10px 0 0 auto;
-
-      &:hover {
-        color: darken(#E3E7E7, 20%);
-        cursor: pointer;
-      }
     }
   }
 

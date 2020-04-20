@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+import { List, Badge } from '../../components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
-
-import List from '../List';
-import Badge from '../Badge';
 
 import './AddListButton.scss';
 
@@ -13,8 +13,14 @@ library.add(fas);
 
 const AddListButton = ({ colors, onAdd }) => {
 	const [isVisiblePopup, setVisibilityPopup] = useState(false);
-	const [selectedColor, selectColor] = useState(colors[0].id);
+	const [selectedColor, selectColor] = useState(null);
 	const [listNameInputValue, setListNameInputValue] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
+
+	useEffect(() => {
+		if (Array.isArray(colors))
+			selectColor(colors[0].id);
+	}, [colors]);
 
 	const onClose = () => {
 		setListNameInputValue('');
@@ -27,12 +33,15 @@ const AddListButton = ({ colors, onAdd }) => {
 			alert('Введите название списка');
 			return;
 		}
-		onAdd({
-			id: Math.round(Math.random() * 100) + 10,
+		setIsLoading(true);
+		axios.post('http://localhost:3001/lists', {
 			name: listNameInputValue,
 			colorId: selectedColor
-		});
-		onClose();
+		}).then(({ data }) => {
+			onAdd(data);
+			onClose();
+			setIsLoading(false);
+		}).finally(() => setIsLoading(false));
 	};
 
 	return (
@@ -65,7 +74,7 @@ const AddListButton = ({ colors, onAdd }) => {
 							/>
 						)) }
 					</div>
-					<button className='button' onClick={ addList }>Добавить</button>
+					<button className='button' onClick={ addList }>{ isLoading ? 'Добавление...' : 'Добавить' }</button>
 				</div>)
 			}
 		</div>

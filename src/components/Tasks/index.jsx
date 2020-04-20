@@ -8,9 +8,9 @@ import './Tasks.scss';
 
 library.add(fas);
 
-const Tasks = ({ listName, tasks, onRemove }) => {
+const Tasks = ({ listName, tasks, onRemove, onCompletedTask }) => {
 	const onChecked = (id) => {
-		alert(id);
+		onCompletedTask(id);
 	};
 
 	const onRemoveTask = (id) => {
@@ -23,18 +23,18 @@ const Tasks = ({ listName, tasks, onRemove }) => {
 				<h2 className='tasks__header__title'>{ listName }</h2>
 				<FontAwesomeIcon className='tasks__header__list-name-edit-button'
 				                 icon='pen'
-				                 color='#E3E7E7'/>
+				                 color='transparent'/>
 			</div>
-			<div className='tasks__items'>
+			{ tasks && <div className='tasks__items'>
 				{
 					tasks.map(task => {
 							return <div key={ task.id } className='item'>
 								<div className='checkbox'>
-									<input id='check'
+									<input id={ `task-${ task.id }` }
 									       type='checkbox'
 									       defaultChecked={ task['completed'] }
 									       onChange={ () => onChecked(task.id) }/>
-									<label htmlFor='check'>
+									<label htmlFor={ `task-${ task.id }` }>
 										<FontAwesomeIcon className='item__complete-button'
 										                 icon='check'
 										                 color='#FFFFFF'/>
@@ -49,7 +49,7 @@ const Tasks = ({ listName, tasks, onRemove }) => {
 						}
 					)
 				}
-			</div>
+			</div> }
 		</div>
 	);
 };
