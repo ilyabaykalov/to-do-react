@@ -3,75 +3,73 @@ import axios from 'axios';
 
 import { List, AddListButton, Tasks } from './components';
 
-
-const App = () => {
+function App() {
 	const [lists, updateLists] = useState(null);
-	const [colors, setColor] = useState(null);
-	// const [taskList, updateTaskList] = useState(database.tasks);
-	const [selectedListId, setListId] = useState(2);
+	const [colors, setColors] = useState(null);
+	const [activeItem, setActiveItem] = useState(null);
 
 	useEffect(() => {
-		axios.get('http://localhost:3001/lists?_expand=color').then(({ data }) => {
-			updateLists(data);
-		});
-		axios.get('http://localhost:3001/colors').then(({ data }) => {
-			setColor(data);
-		});
+		axios
+			.get('http://192.168.0.41:3001/lists?_expand=color&_embed=tasks')
+			.then(({ data }) => updateLists(data));
+
+		axios
+			.get('http://192.168.0.41:3001/colors')
+			.then(({ data }) => setColors(data));
 	}, []);
 
 	const onAddList = (newList) => {
 		updateLists([...lists, newList]);
 	};
 
-	const onRemoveList = (id) => {
-		updateLists(lists.filter(list => list.id !== id));
+	const onAddTask = (listId, taskObj) => {
+		updateLists(lists.map(item => {
+			if (item.id === listId) {
+				item.tasks = [...item.tasks, taskObj];
+			}
+			return item;
+		}));
 	};
 
-	const onSelectListId = (id) => {
-		setListId(id);
+	const onEditListTitle = (id, title) => {
+		updateLists(lists.map(item => {
+			if (item.id === id) {
+				item.name = title;
+			}
+			return item;
+		}));
 	};
-
-	// const onRemoveTask = (id) => {
-	// 	updateTaskList(taskList.filter(task => task.id !== id));
-	// };
-	//
-	// const onCompletedTask = (id) => {
-	// 	updateTaskList(taskList.map(task => {
-	// 		if (task.id === id) {
-	// 			task['completed'] = !task['completed'];
-	// 		}
-	// 		return task;
-	// 	}));
-	// };
 
 	return (
 		<div className='todo'>
 			<div className='todo__sidebar'>
 				<List items={ [{
 					icon: { name: 'list', color: '#7C7C7C' },
-					name: 'Все задачи'
+					name: 'Все задачи',
 				}] }/>
-				{ lists &&colors&& <List items={
-					lists.map(list => {
-						list.color = colors.find(color => color.id === list['colorId']).name;
-						// list.active = list.id === selectedListId;
-						return list;
-					}) }
-				        onSelect={ onSelectListId }
-				        onRemove={ onRemoveList }
-				        isRemovable/> }
+				{ lists ? (
+					<List
+						items={ lists }
+						onRemove={ id => updateLists(lists.filter(item => item.id !== id)) }
+						onClickItem={ item => setActiveItem(item) }
+						activeItem={ activeItem }
+						isRemovable/>
+				) : (
+					'Загрузка...'
+				) }
 				<AddListButton colors={ colors }
 				               onAdd={ onAddList }/>
 			</div>
 			<div className='todo__tasks'>
-				{/*<Tasks listName={ lists.find(list => list.id === selectedListId).name }*/ }
-				{/*       tasks={ taskList.filter(task => task['listId'] === selectedListId) }*/ }
-				{/*       onRemove={ onRemoveTask }*/ }
-				{/*       onCompletedTask={ onCompletedTask }/>*/ }
-				<Tasks/>
+				{ lists && activeItem && (
+					<Tasks
+						list={ activeItem }
+						onAddTask={ onAddTask }
+						onEditTitle={ onEditListTitle }/>
+				) }
 			</div>
 		</div>
 	);
-};
+}
 
 export default App;

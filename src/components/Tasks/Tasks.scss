@@ -33,7 +33,7 @@
   &__items {
     margin-top: 30px;
 
-    .item {
+    &-row {
       margin: 10px 0;
       display: flex;
 
@@ -89,6 +89,7 @@
 
           &:hover {
             color: darken(#E3E7E7, 20%);
+            cursor: pointer;
           }
         }
       }
