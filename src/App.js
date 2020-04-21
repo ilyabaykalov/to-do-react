@@ -99,12 +99,11 @@ function App() {
 					name: 'Все задачи',
 				}] }/>
 				{ lists ? (
-					<List
-						items={ lists }
-						onRemove={ onRemoveList }
-						onClickItem={ onSelectList }
-						activeItem={ activeItem }
-						isRemovable/>
+					<List items={ lists }
+					      onRemove={ onRemoveList }
+					      onClickItem={ onSelectList }
+					      activeItem={ activeItem }
+					      isRemovable/>
 				) : (
 					<div className='loading'>
 						<FontAwesomeIcon className={ 'icon fa-spin' }

@@ -99,6 +99,7 @@
         .item__remove-button {
           color: #E3E7E7;
           margin-left: auto;
+          align-self: center;
 
           &:hover {
             color: darken(#E3E7E7, 20%);
