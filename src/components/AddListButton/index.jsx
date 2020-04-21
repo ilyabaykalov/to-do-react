@@ -42,7 +42,8 @@ const AddListButton = ({ colors, onAdd }) => {
 			})
 			.then(({ data }) => {
 				const color = colors.filter(c => c.id === selectedColor)[0].name;
-				const listObj = { ...data, color: { name: color } };
+				const tasks = [];
+				const listObj = { ...data, color: { name: color }, tasks: tasks };
 				onAdd(listObj);
 				onClose();
 			})
