@@ -1,4 +1,6 @@
 .tasks {
+  display: flex;
+  flex-direction: column;
 
   &__header {
     display: flex;
@@ -28,6 +30,13 @@
       font-size: 18pt;
       margin: 10px 0 0 auto;
     }
+  }
+
+  .no-tasks {
+    align-self: center;
+    margin: 50px 10px;
+    font-size: 24pt;
+    color: #CBCBCB;
   }
 
   &__items {

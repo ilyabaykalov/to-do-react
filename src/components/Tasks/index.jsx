@@ -43,8 +43,8 @@ const Tasks = ({ list, onAddTask, onRemoveTask /*, onEditTitle*/ }) => {
 				                 color='transparent'/>
 			</div>
 
+			{ !list.tasks.length && <h2 className='no-tasks'>Задачи отсутствуют</h2> }
 			<div className='tasks__items'>
-				{ !list.tasks.length && <h2>Задачи отсутствуют</h2> }
 				{ list.tasks.map(task => (
 					<div key={ task.id } className='tasks__items-row'>
 						<div className='checkbox'>
