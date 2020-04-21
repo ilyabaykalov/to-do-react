@@ -48,7 +48,7 @@ const Tasks = ({ list, onAddTask, onRemoveTask /*, onEditTitle*/ }) => {
 				{ list.tasks.map(task => (
 					<div key={ task.id } className='tasks__items-row'>
 						<div className='checkbox'>
-							<input id={ `task-${ task.id }` } type='checkbox'/>
+							<input id={ `task-${ task.id }` } type='checkbox' defaultChecked={ task.completed }/>
 							<label htmlFor={ `task-${ task.id }` }>
 								<FontAwesomeIcon className='tasks__items-row__complete-button'
 								                 icon='check'

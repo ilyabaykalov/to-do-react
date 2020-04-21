@@ -49,12 +49,11 @@ const AddTaskForm = ({ list, onAddTask }) => {
 				</div>
 			) : (
 				<div className='tasks__form-block'>
-					<input
-						value={ inputValue }
-						className='field'
-						type='text'
-						placeholder='Текст задачи'
-						onChange={ e => setInputValue(e.target.value) }/>
+					<input className='field' autoFocus
+					       value={ inputValue }
+					       type='text'
+					       placeholder='Текст задачи'
+					       onChange={ e => setInputValue(e.target.value) }/>
 					<div className='buttons'>
 						<button disabled={ isLoading } onClick={ addTask } className='button add-button'>
 							{ isLoading ? 'Добавление...' : 'Добавить задачу' }
