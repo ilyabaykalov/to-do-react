@@ -37,7 +37,7 @@ const AddListButton = ({ colors, onAdd }) => {
 		}
 		setIsLoading(true);
 		axios.post('http://192.168.0.41:3001/lists', {
-			name: inputValue,
+			name: inputValue.capitalize(),
 			colorId: selectedColor
 		}).then(({ data }) => {
 			const color = colors.filter(c => c.id === selectedColor)[0].name;
