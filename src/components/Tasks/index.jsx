@@ -8,10 +8,11 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
 import './Tasks.scss';
+import axios from 'axios';
 
 library.add(fas);
 
-const Tasks = ({ list, /*onEditTitle,*/ onAddTask }) => {
+const Tasks = ({ list, onAddTask, onRemoveTask /*, onEditTitle*/ }) => {
 
 	// const editTitle = () => {
 	// 	const newTitle = window.prompt('Название списка', list.name);
@@ -26,6 +27,12 @@ const Tasks = ({ list, /*onEditTitle,*/ onAddTask }) => {
 	// 			});
 	// 	}
 	// };
+
+	const removeTask = (listId, taskId) => {
+		axios.delete(`http://192.168.0.41:3001/tasks/${ taskId }`).then(() => {
+			onRemoveTask(listId, taskId);
+		});
+	};
 
 	return (
 		<div className='tasks'>
@@ -51,7 +58,8 @@ const Tasks = ({ list, /*onEditTitle,*/ onAddTask }) => {
 						<p>{ task.text }</p>
 						<FontAwesomeIcon className={ 'item__remove-button' }
 						                 icon={ 'times' }
-						                 color={ 'transparent' }/>
+						                 color={ 'transparent' }
+						                 onClick={ () => removeTask(list.id, task.id) }/>
 					</div>
 				)) }
 				<AddTaskForm list={ list } onAddTask={ onAddTask }/>

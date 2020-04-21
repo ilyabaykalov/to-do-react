@@ -51,12 +51,21 @@ function App() {
 	};
 
 	/* task events */
-	const onAddTask = (listId, taskObj) => {
-		updateLists(lists.map(item => {
-			if (item.id === listId) {
-				item.tasks = [...item.tasks, taskObj];
+	const onAddTask = (listId, newTask) => {
+		updateLists(lists.map(list => {
+			if (list.id === listId) {
+				list.tasks = [...list.tasks, newTask];
 			}
-			return item;
+			return list;
+		}));
+	};
+
+	const onRemoveTask = (listId, taskId) => {
+		updateLists(lists.map(list => {
+			if (list.id === listId) {
+				list.tasks = list.tasks.filter(task => task.id !== taskId);
+			}
+			return list;
 		}));
 	};
 
@@ -90,6 +99,7 @@ function App() {
 					<Tasks
 						list={ activeItem }
 						onAddTask={ onAddTask }
+						onRemoveTask={ onRemoveTask }
 						onEditTitle={ onEditListTitle }/>
 				) }
 			</div>
