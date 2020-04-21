@@ -20,16 +20,22 @@ const AddTaskForm = ({ list, onAddTask }) => {
 	};
 
 	const addTask = () => {
+		if (!inputValue) {
+			console.error('Отсутствует текст задачи');
+			alert('Отсутствует текст задачи');
+			return;
+		}
+
 		setIsLoading(true);
 		axios.post('http://192.168.0.41:3001/tasks', {
 			listId: list.id,
-			text: inputValue,
+			text: inputValue.capitalize(),
 			completed: false
 		}).then(({ data }) => {
 			onAddTask(list.id, data);
 			toggleFormVisible();
-		}).then(()=>{
-			console.debug(`Задача '${inputValue}' успешно добавлена`);
+		}).then(() => {
+			console.debug(`Задача '${ inputValue }' успешно добавлена`);
 		}).catch(() => {
 			console.error('Ошибка при добавлении задачи!');
 			alert('Ошибка при добавлении задачи!');

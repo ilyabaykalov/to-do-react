@@ -17,8 +17,8 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 		if (window.confirm('Вы действительно хотите удалить список?')) {
 			axios.delete(`http://192.168.0.41:3001/lists/${ id }`).then(() => {
 				onRemove(id);
-			}).then(()=>{
-				console.debug(`Список '${activeItem.name}' успешно удален`);
+			}).then(() => {
+				console.debug(`Список '${ activeItem.name }' успешно удален`);
 			}).catch(() => {
 				console.error('Не удалось удалить список');
 				alert('Не удалось удалить список');
@@ -44,8 +44,7 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 					}
 					<span>
 						{ item.name }
-						{ item.tasks && ` (${ item.tasks.length })` }
-						{/*{ item.tasks && ` (${ item.tasks.filter(task => task.completed).length }/${ item.tasks.length })` }*/ }
+						{ item.tasks && ` (${ item.tasks.filter(task => task.completed).length }/${ item.tasks.length })` }
 					</span>
 					{ isRemovable && (
 						<FontAwesomeIcon className={ 'lists__remove-button' }
