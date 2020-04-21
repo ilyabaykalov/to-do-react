@@ -40,6 +40,7 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 					<span>
 						{ item.name }
 						{ item.tasks && ` (${ item.tasks.length })` }
+						{/*{ item.tasks && ` (${ item.tasks.filter(task => task.completed).length }/${ item.tasks.length })` }*/}
 					</span>
 					{ isRemovable && (
 						<FontAwesomeIcon className={ 'list__remove-button' }
