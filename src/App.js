@@ -15,16 +15,24 @@ function App() {
 	const [activeItem, setActiveItem] = useState(null);
 
 	useEffect(() => {
-		axios
-			.get('http://192.168.0.41:3001/lists?_expand=color&_embed=tasks')
-			.then(({ data }) => {
-				updateLists(data);
-				setActiveItem(data[0]);
-			});
+		axios.get('http://192.168.0.41:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
+			updateLists(data);
+			setActiveItem(data[0]);
+		}).then(() => {
+			console.debug(`Списки задач успешно получены с сервера`);
+		}).catch(() => {
+			console.error('Не удалось получить списки задач с сервера');
+			alert('Не удалось получить списки задач с сервера');
+		});
 
-		axios
-			.get('http://192.168.0.41:3001/colors')
-			.then(({ data }) => setColors(data));
+		axios.get('http://192.168.0.41:3001/colors').then(({ data }) => {
+			setColors(data)
+		}).then(() => {
+			console.debug(`Палитра цветов успешно получены с сервера`);
+		}).catch(() => {
+			console.error('Не удалось получить палитру цветов с сервера');
+			alert('Не удалось получить палитру цветов с сервера');
+		});
 	}, []);
 
 	/* list events */
@@ -69,6 +77,20 @@ function App() {
 		}));
 	};
 
+	const onUpdateTask = (listId, updTask) => {
+		updateLists(lists.map(list => {
+			if (list.id === listId) {
+				[...list.tasks].map(task => {
+					if (task.id === updTask.id) {
+						return updTask;
+					}
+					return task;
+				});
+			}
+			return list;
+		}));
+	};
+
 	return (
 		<div className='todo'>
 			<div className='todo__sidebar'>
@@ -99,8 +121,9 @@ function App() {
 					<Tasks
 						list={ activeItem }
 						onAddTask={ onAddTask }
-						onRemoveTask={ onRemoveTask }
-						onEditTitle={ onEditListTitle }/>
+						onUpdateTask={ onUpdateTask }
+						onEditTitle={ onEditListTitle }
+						onRemoveTask={ onRemoveTask }/>
 				) }
 			</div>
 		</div>

@@ -21,22 +21,21 @@ const AddTaskForm = ({ list, onAddTask }) => {
 
 	const addTask = () => {
 		setIsLoading(true);
-		axios
-			.post('http://192.168.0.41:3001/tasks', {
-				listId: list.id,
-				text: inputValue,
-				completed: false
-			})
-			.then(({ data }) => {
-				onAddTask(list.id, data);
-				toggleFormVisible();
-			})
-			.catch(() => {
-				alert('Ошибка при добавлении задачи!');
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		axios.post('http://192.168.0.41:3001/tasks', {
+			listId: list.id,
+			text: inputValue,
+			completed: false
+		}).then(({ data }) => {
+			onAddTask(list.id, data);
+			toggleFormVisible();
+		}).then(()=>{
+			console.debug(`Задача '${inputValue}' успешно добавлена`);
+		}).catch(() => {
+			console.error('Ошибка при добавлении задачи!');
+			alert('Ошибка при добавлении задачи!');
+		}).finally(() => {
+			setIsLoading(false);
+		});
 	};
 
 	return (

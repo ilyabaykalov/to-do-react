@@ -13,7 +13,7 @@ library.add(fas);
 
 const AddListButton = ({ colors, onAdd }) => {
 	const [visiblePopup, setVisiblePopup] = useState(false);
-	const [selectedColor, selectColor] = useState(3);
+	const [selectedColor, selectColor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [inputValue, setInputValue] = useState('');
 
@@ -31,28 +31,28 @@ const AddListButton = ({ colors, onAdd }) => {
 
 	const addList = () => {
 		if (!inputValue) {
-			alert('Введите название списка');
+			console.error('Отсутствует название списка');
+			alert('Отсутствует название списка');
 			return;
 		}
 		setIsLoading(true);
-		axios
-			.post('http://192.168.0.41:3001/lists', {
-				name: inputValue,
-				colorId: selectedColor
-			})
-			.then(({ data }) => {
-				const color = colors.filter(c => c.id === selectedColor)[0].name;
-				const tasks = [];
-				const listObj = { ...data, color: { name: color }, tasks: tasks };
-				onAdd(listObj);
-				onClose();
-			})
-			.catch(() => {
-				alert('Ошибка при добавлении списка!');
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+		axios.post('http://192.168.0.41:3001/lists', {
+			name: inputValue,
+			colorId: selectedColor
+		}).then(({ data }) => {
+			const color = colors.filter(c => c.id === selectedColor)[0].name;
+			const tasks = [];
+			const listObj = { ...data, color: { name: color }, tasks: tasks };
+			onAdd(listObj);
+			onClose();
+		}).then(() => {
+			console.debug(`Список задач '${inputValue}' успешно добавлен`);
+		}).catch(() => {
+			console.error('Ошибка при добавлении списка!');
+			alert('Ошибка при добавлении списка!');
+		}).finally(() => {
+			setIsLoading(false);
+		});
 	};
 
 	return (
