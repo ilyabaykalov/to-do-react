@@ -46,6 +46,10 @@
       margin: 10px 0;
       display: flex;
 
+      .completed{
+        text-decoration: line-through;
+      }
+
       .checkbox {
         align-self: center;
       }

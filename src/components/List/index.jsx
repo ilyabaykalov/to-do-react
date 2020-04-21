@@ -27,7 +27,7 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 	};
 
 	return (
-		<ul onClick={ onClick } className='list'>
+		<ul onClick={ onClick } className='lists'>
 			{ items.map((item, index) => (
 				<li key={ index }
 				    className={ classNames(item.className, {
@@ -48,7 +48,7 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 						{/*{ item.tasks && ` (${ item.tasks.filter(task => task.completed).length }/${ item.tasks.length })` }*/ }
 					</span>
 					{ isRemovable && (
-						<FontAwesomeIcon className={ 'list__remove-button' }
+						<FontAwesomeIcon className={ 'lists__remove-button' }
 						                 icon={ 'times' }
 						                 color={ 'transparent' }
 						                 onClick={ () => removeList(item.id) }/>

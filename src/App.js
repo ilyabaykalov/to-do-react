@@ -26,7 +26,7 @@ function App() {
 		});
 
 		axios.get('http://192.168.0.41:3001/colors').then(({ data }) => {
-			setColors(data)
+			setColors(data);
 		}).then(() => {
 			console.debug(`Палитра цветов успешно получены с сервера`);
 		}).catch(() => {
@@ -41,7 +41,7 @@ function App() {
 	};
 
 	const onRemoveList = (id) => {
-		updateLists(lists.filter(item => item.id !== id));
+		updateLists(lists.filter(list => list.id !== id));
 		setActiveItem(null);
 	};
 

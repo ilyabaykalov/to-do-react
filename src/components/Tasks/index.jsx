@@ -11,7 +11,6 @@ import './Tasks.scss';
 library.add(fas);
 
 const Tasks = ({ list, onAddTask, onUpdateTask, /*, onEditTitle,*/onRemoveTask }) => {
-
 	// const editTitle = () => {
 	// 	const newTitle = window.prompt('Название списка', list.name);
 	// 	if (newTitle) {
