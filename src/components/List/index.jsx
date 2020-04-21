@@ -15,7 +15,7 @@ library.add(fas);
 const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }) => {
 	const removeList = id => {
 		if (window.confirm('Вы действительно хотите удалить список?')) {
-			axios.delete(`http://192.168.0.41:3001/lists/${id}`).then(() => {
+			axios.delete(`http://192.168.0.41:3001/lists/${ id }`).then(() => {
 				onRemove(id);
 			});
 		}
@@ -23,25 +23,24 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 
 	return (
 		<ul onClick={ onClick } className='list'>
-			{ items.map((item,index) => (
+			{ items.map((item, index) => (
 				<li key={ index }
-					className={ classNames(item.className, {
-						active: item.active
-							? item.active
-							: activeItem && activeItem.id === item.id
-					}) }
-					onClick={ onClickItem ? () => onClickItem(item) : null }>
+				    className={ classNames(item.className, {
+					    active: item.active
+						    ? item.active
+						    : activeItem && activeItem.id === item.id
+				    }) }
+				    onClick={ onClickItem ? () => onClickItem(item) : null }>
 					{ item.icon ?
 						<FontAwesomeIcon className={ 'icon' }
 						                 icon={ item.icon.name }
 						                 color={ item.icon.color }/> :
 						<Badge color={ item.color.name }/>
 					}
-					<span>{ item.name }</span>
-					{/*<span>*/ }
-					{/*{ item.name }*/ }
-					{/*			{ item.tasks && ` (${ item.tasks.length })` }*/ }
-					{/*</span>*/ }
+					<span>
+						{ item.name }
+						{ item.tasks && ` (${ item.tasks.length })` }
+					</span>
 					{ isRemovable && (
 						<FontAwesomeIcon className={ 'list__remove-button' }
 						                 icon={ 'times' }
