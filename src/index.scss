@@ -38,6 +38,20 @@
     background-color: #FFFFFF;
     border-radius: 0 30px 30px 0;
   }
+
+  .loading {
+    display: flex;
+    margin: 0 0 30px 10px;
+
+    .icon{
+      align-self: center;
+    }
+    p{
+      margin-left: 10px;
+      color: #7F7F7F;
+      font-size: 16pt;
+    }
+  }
 }
 
 .field {

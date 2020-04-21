@@ -95,4 +95,33 @@
       }
     }
   }
+
+  &__add-new {
+    margin: 20px 0;
+    color: #7F7E7E;
+    cursor: pointer;
+
+    span {
+      margin-left: 10px;
+    }
+  }
+
+  &__form-block {
+    margin: 20px 0;
+
+    .buttons {
+      display: flex;
+
+      .add-button {
+        flex-grow: 4;
+        margin: 10px 5px 0 0;
+      }
+
+      .cancel-button {
+        flex-grow: 1;
+        margin: 10px 0 0 5px;
+        background: #BABABA;
+      }
+    }
+  }
 }

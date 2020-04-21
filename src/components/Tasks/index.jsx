@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 import { AddTaskForm } from '../../components';
 
@@ -11,21 +11,21 @@ import './Tasks.scss';
 
 library.add(fas);
 
-const Tasks = ({ list, onEditTitle, onAddTask }) => {
+const Tasks = ({ list, /*onEditTitle,*/ onAddTask }) => {
 
-	const editTitle = () => {
-		const newTitle = window.prompt('Название списка', list.name);
-		if (newTitle) {
-			onEditTitle(list.id, newTitle);
-			axios
-				.patch('http://192.168.0.41:3001/lists/' + list.id, {
-					name: newTitle
-				})
-				.catch(() => {
-					alert('Не удалось обновить название списка');
-				});
-		}
-	};
+	// const editTitle = () => {
+	// 	const newTitle = window.prompt('Название списка', list.name);
+	// 	if (newTitle) {
+	// 		onEditTitle(list.id, newTitle);
+	// 		axios
+	// 			.patch('http://192.168.0.41:3001/lists/' + list.id, {
+	// 				name: newTitle
+	// 			})
+	// 			.catch(() => {
+	// 				alert('Не удалось обновить название списка');
+	// 			});
+	// 	}
+	// };
 
 	return (
 		<div className='tasks'>
@@ -43,7 +43,7 @@ const Tasks = ({ list, onEditTitle, onAddTask }) => {
 						<div className='checkbox'>
 							<input id={ `task-${ task.id }` } type='checkbox'/>
 							<label htmlFor={ `task-${ task.id }` }>
-								<FontAwesomeIcon className='item__complete-button'
+								<FontAwesomeIcon className='tasks__items-row__complete-button'
 								                 icon='check'
 								                 color='#FFFFFF'/>
 							</label>

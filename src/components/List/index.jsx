@@ -13,10 +13,10 @@ import './List.scss';
 library.add(fas);
 
 const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }) => {
-	const removeList = item => {
+	const removeList = id => {
 		if (window.confirm('Вы действительно хотите удалить список?')) {
-			axios.delete('http://192.168.0.41:3001/lists/' + item.id).then(() => {
-				onRemove(item.id);
+			axios.delete(`http://192.168.0.41:3001/lists/${id}`).then(() => {
+				onRemove(id);
 			});
 		}
 	};
