@@ -1,144 +1,185 @@
 .tasks {
-  display: flex;
-  flex-direction: column;
+  &:not(:last-of-type) {
+    margin-bottom: 40px;
+  }
 
-  &__header {
-    display: flex;
-    border-bottom: 1px solid #F2F2F2;
+  a {
+    text-decoration: none;
+  }
+
+  &__title {
+    font-family: Montserrat;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 39px;
+    color: #64c4ed;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f2f2f2;
 
     &:hover {
-      .tasks__header__list-name-edit-button {
-        color: #E3E7E7;
-
-        &:hover {
-          color: darken(#E3E7E7, 20%);
-          cursor: pointer;
-        }
+      img {
+        opacity: 0.2;
       }
     }
 
-    &__title {
-      font-family: Montserrat, serif;
-      font-weight: bold;
-      font-size: 32pt;
-      line-height: 40pt;
-      color: #64C4ED;
-      padding-bottom: 20px;
-    }
+    img {
+      opacity: 0;
+      cursor: pointer;
+      margin-left: 15px;
 
-    &__list-name-edit-button {
-      font-size: 18pt;
-      margin: 10px 0 0 auto;
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 
-  .no-tasks {
-    align-self: center;
-    margin: 50px 10px;
-    font-size: 24pt;
-    color: #CBCBCB;
+  &__form {
+    margin-top: 20px;
+
+    &-block {
+      .button {
+        margin-right: 10px;
+        margin-top: 15px;
+      }
+    }
+
+    &-new {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: opacity 0.15s ease-in-out;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      img {
+        width: 16px;
+        height: 16px;
+        margin-left: 4px;
+      }
+
+      span {
+        font-size: 16px;
+        margin-left: 19px;
+      }
+    }
   }
 
   &__items {
     margin-top: 30px;
 
+    h2 {
+      font-family: Montserrat;
+      font-weight: bold;
+      font-size: 22px;
+      color: #c9d1d3;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+    }
+
     &-row {
-      margin: 10px 0;
       display: flex;
+      align-items: center;
+      margin-bottom: 15px;
 
-      .completed{
-        text-decoration: line-through;
+      &:hover &-actions {
+        opacity: 1;
       }
 
-      .checkbox {
-        align-self: center;
-      }
-
-      p {
-        align-self: center;
-        margin-left: 10px;
-      }
-
-      input {
-        display: none;
-      }
-
-      label {
+      &-actions {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 20px;
-        height: 20px;
-        border: 2px solid #E3E7E7;
-        border-radius: 50%;
-        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        opacity: 0;
+        transition: opacity 0.15s ease-in-out;
 
-        &:hover {
-          background: #E3E7E7;
+        div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          background-color: lighten(#f4f6f8, 2%);
+          border-radius: 6px;
+          margin-left: 5px;
           cursor: pointer;
+
+          &:hover {
+            background-color: darken(#f4f6f8, 2%);
+            svg {
+              opacity: 0.9;
+            }
+          }
+
+          svg {
+            width: 11px;
+            height: 11px;
+            opacity: 0.4;
+          }
         }
       }
 
-      input:checked + label {
-        background: #5EBF77;
-        border: 2px solid #5EBF77;
+      p {
+        margin-left: 15px;
+        border: 0;
+        font-size: 16px;
+        width: 100%;
       }
+    }
+  }
 
-      &__complete-button {
-        width: 12px;
-        height: 12px;
+  .checkbox {
+    input {
+      display: none;
+    }
+
+    svg {
+      transition: opacity 0.15s ease-in-out;
+      path {
+        stroke: #f2f2f2;
       }
+    }
 
-      &__remove-button {
-        width: 15px;
-        height: 15px;
-        align-self: center;
+    input:checked + label {
+      background-color: #4dd599;
+      border-color: #4dd599;
+
+      svg {
+        opacity: 1;
+        path {
+          stroke: #fff;
+        }
       }
+    }
 
-      &:hover {
-        .item__remove-button {
-          color: #E3E7E7;
-          margin-left: auto;
-          align-self: center;
-
-          &:hover {
-            color: darken(#E3E7E7, 20%);
-            cursor: pointer;
+    &:hover {
+      label {
+        background-color: #f2f2f2;
+        border-color: #f2f2f2;
+        svg {
+          opacity: 1;
+          path {
+            stroke: #b2b2b2;
           }
         }
       }
     }
-  }
 
-  &__add-new {
-    margin: 20px 0;
-    color: #7F7E7E;
-    cursor: pointer;
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #e8e8e8;
+      border-radius: 30px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      transition: background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out;
 
-    span {
-      margin-left: 10px;
-    }
-  }
-
-  &__form {
-    margin-left: 5px;
-    &-block {
-      margin: 20px 0;
-
-      .buttons {
-        display: flex;
-
-        .add-button {
-          flex-grow: 4;
-          margin: 10px 5px 0 0;
-        }
-
-        .cancel-button {
-          flex-grow: 1;
-          margin: 10px 0 0 5px;
-          background-color: #F4F6F8;
-          color: #9C9C9C;
-        }
+      svg {
+        opacity: 0;
       }
     }
   }

@@ -1,45 +1,67 @@
-.lists {
+.list {
   $self: &;
 
   margin-bottom: 30px;
-  position: relative;
+
+  &__add-button {
+    opacity: 0.4;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
 
   li {
     display: flex;
     align-items: center;
-    padding: 10px 12px;
-    margin-bottom: 5px;
     cursor: pointer;
+    padding: 10px 12px;
+    transition: background-color 0.15s ease-in-out;
 
-    &:hover {
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 5px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    &:hover #{$self}__remove-icon {
+      opacity: 0.2;
+    }
 
-      #{$self}__remove-button {
-        color: #E3E7E7;
+    #{$self}__remove-icon {
+      opacity: 0;
+      transition: opacity 0.15s ease-in-out;
 
-        &:hover {
-          color: darken(#E3E7E7, 20%);
-        }
+      &:hover {
+        opacity: 0.8;
       }
     }
 
+    span {
+      flex: 1;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      width: 160px;
+      white-space: nowrap;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
     &.active {
-      background: #FFFFFF;
-      border-radius: 5px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
-      transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+      background: #ffffff;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.04);
+      border-radius: 4px;
     }
 
-    .icon {
-      width: 15px;
-      height: 15px;
-      margin-right: 10px;
+    .badge {
+      position: relative;
+      left: 5px;
     }
-  }
 
-  &__remove-button {
-    margin-left: auto;
+    i {
+      display: inline-flex;
+      margin-right: 8px;
+      svg {
+        path {
+          fill: #7c7c7c;
+        }
+      }
+    }
   }
 }
