@@ -1,4 +1,6 @@
-export { default as AddList } from './AddList';
+export { default as AddListButton } from './AddListButton';
 export { default as Badge } from './Badge';
 export { default as List } from './List';
 export { default as Tasks } from './Tasks';
+export { default as Task } from './Tasks/Task';
+export { default as AddTaskForm } from './Tasks/AddTaskForm';

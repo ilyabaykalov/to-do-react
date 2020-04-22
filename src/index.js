@@ -7,8 +7,8 @@ import App from './App';
 import './index.scss';
 
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
-  document.getElementById('root')
+	<Router>
+		<App/>
+	</Router>,
+	document.getElementById('root')
 );
