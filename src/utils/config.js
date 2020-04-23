@@ -1,6 +1,6 @@
 const host={
-	ip: '192.168.0.41',
-	port: '3001'
+	ip: '0.0.0.0',
+	port: '5000'
 };
 
 export default host;
