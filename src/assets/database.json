@@ -53,7 +53,7 @@
     },
     {
       "listId": 4,
-      "text": "Купить 1984!",
+      "text": "Дочитать \"Чистый код\"",
       "completed": false,
       "id": 10
     },
@@ -98,12 +98,6 @@
       "text": "Досмотреть Ходячих мертвецов",
       "completed": false,
       "id": 21
-    },
-    {
-      "listId": 2,
-      "text": "Sdfsdf",
-      "completed": false,
-      "id": 22
     }
   ],
   "colors": [
