@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -7,8 +7,11 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(fas);
 
 const Task = ({ id, text, completed, list, onRemove, onEdit, onComplete }) => {
+	const [classNames, setClassNames] = useState(completed ? 'completed' : '');
+
 	const onChangeCheckbox = e => {
 		onComplete(list.id, id, e.target.checked);
+		setClassNames(e.target.checked ? 'completed' : '');
 	};
 
 	return (
@@ -23,7 +26,7 @@ const Task = ({ id, text, completed, list, onRemove, onEdit, onComplete }) => {
 					                 icon='check'/>
 				</label>
 			</div>
-			<p>{ text }</p>
+			<p className={ classNames }>{ text }</p>
 			<div className='tasks__items-row-actions'>
 				<div>
 					<FontAwesomeIcon className={ 'tasks__items-row-actions__edit-button' }

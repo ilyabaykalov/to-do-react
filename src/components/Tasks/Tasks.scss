@@ -46,8 +46,8 @@
       align-items: center;
       margin-bottom: 15px;
 
-      &:hover &-actions {
-        opacity: 1;
+      .completed{
+        text-decoration: line-through;
       }
 
       &-actions {
