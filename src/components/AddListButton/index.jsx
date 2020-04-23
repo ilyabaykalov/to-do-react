@@ -47,9 +47,10 @@ const AddListButton = ({ colors, onAdd }) => {
 			onClose();
 		}).then(() => {
 			console.debug(`Список задач '${ inputValue }' успешно добавлен`);
-		}).catch(() => {
-			console.error('Ошибка при добавлении списка!');
-			alert('Ошибка при добавлении списка!');
+		}).catch(error => {
+			console.error('Ошибка при добавлении списка');
+			console.error(`Ошибка: ${ error }`);
+			alert('Ошибка при добавлении списка');
 		}).finally(() => {
 			setIsLoading(false);
 		});

@@ -1,3 +1,4 @@
+//eslint-disable-next-line no-extend-native
 String.prototype.capitalize = function () {
 	if (!this) return this;
 

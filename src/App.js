@@ -115,7 +115,9 @@ function App() {
 		updateLists(newList);
 		axios.patch('http://192.168.0.41:3001/tasks/' + taskId, {
 			completed
-		}).catch(() => {
+		}).catch(error => {
+			console.error('Не удалось обновить задачу');
+			console.error(`Ошибка: ${ error }`);
 			alert('Не удалось обновить задачу');
 		});
 	};

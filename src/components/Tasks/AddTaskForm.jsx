@@ -29,9 +29,10 @@ const AddTaskForm = ({ list, onAddTask }) => {
 			toggleFormVisible();
 		}).then(() => {
 			console.debug(`Задача '${ inputValue }' успешно добавлена`);
-		}).catch(() => {
-			console.error('Ошибка при добавлении задачи!');
-			alert('Ошибка при добавлении задачи!');
+		}).catch(error => {
+			console.error('Ошибка при добавлении задачи');
+			console.error(`Ошибка: ${ error }`);
+			alert('Ошибка при добавлении задачи');
 		}).finally(() => {
 			setIsLoading(false);
 		});

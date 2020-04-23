@@ -21,8 +21,9 @@ const Tasks = ({ list, onEditTitle, onAddTask, onRemoveTask, onEditTask, onCompl
 				name: newTitle
 			}).then(() => {
 				console.debug(`Заголовок текущего списка изменён на ${ newTitle }`);
-			}).catch(() => {
+			}).catch(error => {
 				console.error('Не удалось обновить название списка');
+				console.error(`Ошибка: ${ error }`);
 				alert('Не удалось обновить название списка');
 			});
 		}

@@ -19,8 +19,9 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 				onRemove(id);
 			}).then(() => {
 				console.debug(`Список '${ activeItem.name }' успешно удален`);
-			}).catch(() => {
+			}).catch(error => {
 				console.error('Не удалось удалить список');
+				console.error(`Ошибка: ${ error }`);
 				alert('Не удалось удалить список');
 			});
 		}
