@@ -11,7 +11,7 @@
 
     &:hover {
       .tasks__header__list-name-edit-button {
-        color: lighten($action-btn-color,15%);
+        color: lighten($action-btn-color, 15%);
       }
     }
 
@@ -50,7 +50,7 @@
         opacity: 1;
       }
 
-      .completed{
+      .completed {
         text-decoration: line-through;
       }
 
