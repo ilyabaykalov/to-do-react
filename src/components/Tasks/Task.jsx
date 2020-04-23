@@ -28,15 +28,13 @@ const Task = ({ id, text, completed, list, onRemove, onEdit, onComplete }) => {
 			</div>
 			<p className={ classNames }>{ text }</p>
 			<div className='tasks__items-row-actions'>
-				<div>
+				<div onClick={ () => onEdit(list.id, { id, text }) }>
 					<FontAwesomeIcon className={ 'tasks__items-row-actions__edit-button' }
-					                 icon={ 'pen' }
-					                 onClick={ () => onEdit(list.id, { id, text }) }/>
+					                 icon={ 'pen' }/>
 				</div>
-				<div>
+				<div onClick={ () => onRemove(list.id, id) }>
 					<FontAwesomeIcon className={ 'tasks__items-row-actions__remove-button' }
-					                 icon={ 'times' }
-					                 onClick={ () => onRemove(list.id, id) }/>
+					                 icon={ 'times' }/>
 				</div>
 			</div>
 		</div>

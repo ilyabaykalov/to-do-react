@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -14,18 +15,34 @@ library.add(fas);
 
 const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }) => {
 	const removeList = item => {
-		if (window.confirm('Вы действительно хотите удалить список?')) {
-			axios.delete(`http://${ host.ip }:${ host.port }/lists/${ item.id }`).then(() => {
-				onRemove(item.id);
-				return item.name;
-			}).then(taskName => {
-				console.debug(`Список '${ taskName }' успешно удален`);
-			}).catch(error => {
-				console.error('Не удалось удалить список');
-				console.error(`Ошибка: ${ error }`);
-				alert('Не удалось удалить список');
-			});
-		}
+		const taskName = item.name;
+		Swal.fire({
+			title: `Вы уверены что хотите удалить список "${ taskName }"?`,
+			text: 'Вы не сможете отменить это действие!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#42B883',
+			cancelButtonColor: '#C9D1D3',
+			confirmButtonText: 'Да, удалить!',
+			cancelButtonText: 'Отмена'
+		}).then((result) => {
+			if (result.value) {
+				axios.delete(`http://${ host.ip }:${ host.port }/lists/${ item.id }`).then(() => {
+					onRemove(item.id);
+				}).catch(error => {
+					console.error('Не удалось удалить список');
+					console.error(`Ошибка: ${ error }`);
+					alert('Не удалось удалить список');
+				});
+				Swal.fire(
+					'Удалено!',
+					'Список успешно удален.',
+					'success'
+				).then(() => {
+					console.debug(`Список '${ taskName }' успешно удален`);
+				});
+			}
+		});
 	};
 
 	return (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { Route, useHistory } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -87,20 +88,31 @@ function App() {
 	};
 
 	const onRemoveTask = (listId, taskId) => {
-		if (window.confirm('Вы действительно хотите удалить задачу?')) {
-			const newList = lists.map(item => {
-				if (item.id === listId) {
-					item.tasks = item.tasks.filter(task => task.id !== taskId);
-				}
-				return item;
-			});
-			updateLists(newList);
-			axios.delete(`http://${ host.ip }:${ host.port }/tasks/${ taskId }`).catch(error => {
-				alert('Не удалось удалить задачу');
-				console.error('Не удалось удалить задачу');
-				console.error(`Ошибка: ${ error }`);
-			});
-		}
+		Swal.fire({
+			title: `Вы уверены что хотите удалить задачу\n"${ activeItem.tasks.find(task => task.id === taskId).text }"?`,
+			text: 'Вы не сможете отменить это действие!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#42B883',
+			cancelButtonColor: '#C9D1D3',
+			confirmButtonText: 'Да, удалить!',
+			cancelButtonText: 'Отмена'
+		}).then((result) => {
+			if (result.value) {
+				const newList = lists.map(item => {
+					if (item.id === listId) {
+						item.tasks = item.tasks.filter(task => task.id !== taskId);
+					}
+					return item;
+				});
+				updateLists(newList);
+				axios.delete(`http://${ host.ip }:${ host.port }/tasks/${ taskId }`).catch(error => {
+					alert('Не удалось удалить задачу');
+					console.error('Не удалось удалить задачу');
+					console.error(`Ошибка: ${ error }`);
+				});
+			}
+		});
 	};
 
 	const onCompleteTask = (listId, taskId, completed) => {

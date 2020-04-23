@@ -149,6 +149,7 @@
 
     &-new {
       display: flex;
+      width: max-content;
       align-items: center;
       cursor: pointer;
       color: $btn-add-list-color;
