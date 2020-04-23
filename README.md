@@ -17,6 +17,6 @@ Install the dependencies and devDependencies and start the server.
 
 ```sh
 $ npm i
-$ node run json-server
-$ node run start
+$ npm run json-server
+$ npm run start
 ```
