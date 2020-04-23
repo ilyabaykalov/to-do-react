@@ -11,12 +11,7 @@
 
     &:hover {
       .tasks__header__list-name-edit-button {
-        color: #E3E7E7;
-
-        &:hover {
-          color: darken(#E3E7E7, 20%);
-          cursor: pointer;
-        }
+        color: lighten($action-btn-color,15%);
       }
     }
 
@@ -33,7 +28,7 @@
       font-size: 16pt;
       margin-left: 15px;
       padding-bottom: 30px;
-      color: #E3E7E7;
+      color: transparent;
     }
   }
 
