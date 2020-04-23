@@ -14,32 +14,33 @@ import './List.scss';
 library.add(fas);
 
 const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }) => {
-	const removeList = item => {
-		const taskName = item.name;
+	const removeList = list => {
+		const listName = list.name;
+
 		Swal.fire({
-			title: `Вы уверены что хотите удалить список "${ taskName }"?`,
-			text: 'Вы не сможете отменить это действие!',
-			icon: 'warning',
-			showCancelButton: true,
+			title: `Вы уверены что хотите удалить список "${ listName }"?`,
+			icon: 'question',
 			confirmButtonColor: '#42B883',
 			cancelButtonColor: '#C9D1D3',
 			confirmButtonText: 'Да, удалить!',
-			cancelButtonText: 'Отмена'
-		}).then((result) => {
+			showCancelButton: true,
+			cancelButtonText: 'Отмена',
+			focusConfirm:false,
+			focusCancel:false,
+		}).then(result => {
 			if (result.value) {
-				axios.delete(`http://${ host.ip }:${ host.port }/lists/${ item.id }`).then(() => {
-					onRemove(item.id);
+				axios.delete(`http://${ host.ip }:${ host.port }/lists/${ list.id }`).then(() => {
+					onRemove(list.id);
+				}).then(() => {
+					console.debug(`Список '${ listName }' успешно удален`);
 				}).catch(error => {
-					console.error('Не удалось удалить список');
-					console.error(`Ошибка: ${ error }`);
-					alert('Не удалось удалить список');
-				});
-				Swal.fire(
-					'Удалено!',
-					'Список успешно удален.',
-					'success'
-				).then(() => {
-					console.debug(`Список '${ taskName }' успешно удален`);
+					Swal.fire({
+						icon: 'error',
+						title: 'Не удалось удалить список'
+					}).finally(()=>{
+						console.error('Не удалось удалить список');
+						console.error(`Ошибка: ${ error }`);
+					});
 				});
 			}
 		});

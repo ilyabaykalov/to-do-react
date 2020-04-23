@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 
 import { Task, AddTaskForm, host } from '../../components';
@@ -14,19 +15,37 @@ library.add(fas);
 
 const Tasks = ({ list, onEditTitle, onAddTask, onRemoveTask, onEditTask, onCompleteTask, withoutEmpty }) => {
 	const editTitle = () => {
-		const newTitle = window.prompt('Название списка', list.name);
-		if (newTitle) {
-			onEditTitle(list.id, newTitle);
-			axios.patch(`http://${ host.ip }:${ host.port }/lists/${ list.id }`, {
-				name: newTitle
-			}).then(() => {
-				console.debug(`Заголовок текущего списка изменён на ${ newTitle }`);
-			}).catch(error => {
-				console.error('Не удалось обновить название списка');
-				console.error(`Ошибка: ${ error }`);
-				alert('Не удалось обновить название списка');
-			});
-		}
+		Swal.fire({
+			title: 'Введите название списка',
+			input: 'text',
+			inputValue: list.name,
+			showCancelButton: true,
+			cancelButtonText: 'Отмена',
+			confirmButtonColor: '#42B883',
+			cancelButtonColor: '#C9D1D3',
+			inputValidator: (value) => {
+				if (!value) {
+					return 'Поле не может быть пустым';
+				}
+			}
+		}).then(({ value }) => {
+			if (value) {
+				onEditTitle(list.id, value);
+				axios.patch(`http://${ host.ip }:${ host.port }/lists/${ list.id }`, {
+					name: value
+				}).then(() => {
+					console.debug(`Заголовок текущего списка изменён на ${ value }`);
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Не удалось обновить название списка'
+					}).then(() => {
+						console.error('Не удалось обновить название списка');
+						console.error(`Ошибка: ${ error }`);
+					});
+				});
+			}
+		});
 	};
 
 	return (

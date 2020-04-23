@@ -64,40 +64,73 @@ function App() {
 	};
 
 	const onEditTask = (listId, updTask) => {
-		const newTaskText = window.prompt('Текст задачи', updTask.text);
+		Swal.fire({
+			title: 'Введите текст задачи',
+			input: 'text',
+			inputValue: updTask.text,
+			showCancelButton: true,
+			cancelButtonText: 'Отмена',
+			confirmButtonColor: '#42B883',
+			cancelButtonColor: '#C9D1D3',
+			inputValidator: (value) => {
+				if (!value) {
+					return 'Поле не может быть пустым';
+				}
+			}
+		}).then(({ value, dismiss }) => {
+			if (value) {
+				return [lists.map(list => {
+					if (list.id === listId) {
+						list.tasks = list.tasks.map(task => {
+							if (task.id === updTask.id) {
+								task.text = value;
+							}
+							return task;
+						});
+					}
+					return list;
+				}), value];
+			} else return [null, dismiss];
+		}).then(([list, value]) => {
+			if (list && value) {
+				updateLists(list);
+				axios.patch(`http://${ host.ip }:${ host.port }/tasks/${ updTask.id }`, {
+					text: value
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Не удалось изменить текст задачи'
+					}).then(() => {
+						console.error('Не удалось изменить текст задачи');
+						console.error(`Ошибка: ${ error }`);
+					});
+				});
+			}
+		});
+	};
 
-		if (!newTaskText) return;
-
-		const newList = lists.map(list => {
+	const onRemoveTask = (listId, taskId) => {
+		let taskName = '';
+		lists.forEach(list => {
 			if (list.id === listId) {
 				list.tasks = list.tasks.map(task => {
-					if (task.id === updTask.id) {
-						task.text = newTaskText;
+					if (task.id === taskId) {
+						taskName = task.text;
 					}
 					return task;
 				});
 			}
 			return list;
 		});
-		updateLists(newList);
-		axios.patch(`http://${ host.ip }:${ host.port }/tasks/${ updTask.id }`, {
-			text: newTaskText
-		}).catch(() => {
-			alert('Не удалось обновить задачу');
-		});
-	};
-
-	const onRemoveTask = (listId, taskId) => {
 		Swal.fire({
-			title: `Вы уверены что хотите удалить задачу\n"${ activeItem.tasks.find(task => task.id === taskId).text }"?`,
-			text: 'Вы не сможете отменить это действие!',
-			icon: 'warning',
-			showCancelButton: true,
+			title: `Вы уверены что хотите удалить задачу\n"${ taskName }"?`,
+			icon: 'question',
 			confirmButtonColor: '#42B883',
 			cancelButtonColor: '#C9D1D3',
 			confirmButtonText: 'Да, удалить!',
+			showCancelButton: true,
 			cancelButtonText: 'Отмена'
-		}).then((result) => {
+		}).then(result => {
 			if (result.value) {
 				const newList = lists.map(item => {
 					if (item.id === listId) {
@@ -106,10 +139,16 @@ function App() {
 					return item;
 				});
 				updateLists(newList);
-				axios.delete(`http://${ host.ip }:${ host.port }/tasks/${ taskId }`).catch(error => {
-					alert('Не удалось удалить задачу');
-					console.error('Не удалось удалить задачу');
-					console.error(`Ошибка: ${ error }`);
+				axios.delete(`http://${ host.ip }:${ host.port }/tasks/${ taskId }`).then(() => {
+					console.debug(`Задача '${ taskName }' успешно удалена`);
+				}).catch(error => {
+					Swal.fire({
+						icon: 'error',
+						title: 'Не удалось удалить список'
+					}).then(() => {
+						console.error('Не удалось удалить список');
+						console.error(`Ошибка: ${ error }`);
+					});
 				});
 			}
 		});
