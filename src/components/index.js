@@ -6,3 +6,5 @@ export { default as Task } from './Tasks/Task';
 export { default as AddTaskForm } from './Tasks/AddTaskForm';
 
 export { default as String } from '../utils/String';
+
+export { default as host } from '../utils/globals';

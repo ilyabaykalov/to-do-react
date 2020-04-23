@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
+import { host } from '../../components';
+
 library.add(fas);
 
 const AddTaskForm = ({ list, onAddTask }) => {
@@ -24,7 +26,7 @@ const AddTaskForm = ({ list, onAddTask }) => {
 			completed: false
 		};
 		setIsLoading(true);
-		axios.post('http://192.168.0.41:3001/tasks', newTask).then(({ data }) => {
+		axios.post(`http://${ host.ip }:${ host.port }/tasks`, newTask).then(({ data }) => {
 			onAddTask(list.id, data);
 			toggleFormVisible();
 		}).then(() => {

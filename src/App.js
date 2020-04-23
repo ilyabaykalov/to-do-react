@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import { List, AddListButton, Tasks } from './components';
+import { List, AddListButton, Tasks, host } from './components';
 
 library.add(fas);
 
@@ -17,16 +17,17 @@ function App() {
 	let history = useHistory();
 
 	useEffect(() => {
-		axios.get('http://192.168.0.41:3001/lists?_expand=color&_embed=tasks').then(({ data }) => {
+		axios.get(`http://${ host.ip }:${ host.port }/lists?_expand=color&_embed=tasks`).then(({ data }) => {
 			updateLists(data);
 		}).then(() => {
 			console.debug(`Списки задач успешно получены с сервера`);
-		}).catch(() => {
+		}).catch(error => {
 			console.error('Не удалось получить списки задач с сервера');
+			console.error(`Ошибка: ${ error }`);
 			alert('Не удалось получить списки задач с сервера');
 		});
 
-		axios.get('http://192.168.0.41:3001/colors').then(({ data }) => {
+		axios.get(`http://${ host.ip }:${ host.port }/colors`).then(({ data }) => {
 			setColors(data);
 		}).then(() => {
 			console.debug(`Палитра цветов успешно получены с сервера`);
@@ -37,39 +38,39 @@ function App() {
 	}, []);
 
 	useEffect(() => {
-		const listId = history.location.pathname.split('lists/')[1];
+		const listId = Number(history.location.pathname.replace('/lists/', ''));
 		if (lists) {
-			const list = lists.find(list => list.id === Number(listId));
+			const list = lists.find(list => list.id === listId);
 			setActiveItem(list);
 		}
 	}, [lists, history.location.pathname]);
 
 	/* list events */
-	const onAddList = obj => {
-		const newList = [...lists, obj];
+	const onAddList = list => {
+		const newList = [...lists, list];
 		updateLists(newList);
 	};
 
 	/* task events */
-	const onAddTask = (listId, taskObj) => {
+	const onAddTask = (listId, newTask) => {
 		const newList = lists.map(item => {
 			if (item.id === listId) {
-				item.tasks = [...item.tasks, taskObj];
+				item.tasks = [...item.tasks, newTask];
 			}
 			return item;
 		});
 		updateLists(newList);
 	};
 
-	const onEditTask = (listId, taskObj) => {
-		const newTaskText = window.prompt('Текст задачи', taskObj.text);
+	const onEditTask = (listId, updTask) => {
+		const newTaskText = window.prompt('Текст задачи', updTask.text);
 
 		if (!newTaskText) return;
 
 		const newList = lists.map(list => {
 			if (list.id === listId) {
 				list.tasks = list.tasks.map(task => {
-					if (task.id === taskObj.id) {
+					if (task.id === updTask.id) {
 						task.text = newTaskText;
 					}
 					return task;
@@ -78,7 +79,7 @@ function App() {
 			return list;
 		});
 		updateLists(newList);
-		axios.patch('http://192.168.0.41:3001/tasks/' + taskObj.id, {
+		axios.patch(`http://${ host.ip }:${ host.port }/tasks/${ updTask.id }`, {
 			text: newTaskText
 		}).catch(() => {
 			alert('Не удалось обновить задачу');
@@ -94,8 +95,10 @@ function App() {
 				return item;
 			});
 			updateLists(newList);
-			axios.delete('http://192.168.0.41:3001/tasks/' + taskId).catch(() => {
+			axios.delete(`http://${ host.ip }:${ host.port }/tasks/${ taskId }`).catch(error => {
 				alert('Не удалось удалить задачу');
+				console.error('Не удалось удалить задачу');
+				console.error(`Ошибка: ${ error }`);
 			});
 		}
 	};
@@ -113,7 +116,7 @@ function App() {
 			return list;
 		});
 		updateLists(newList);
-		axios.patch('http://192.168.0.41:3001/tasks/' + taskId, {
+		axios.patch(`http://${ host.ip }:${ host.port }/tasks/${ taskId }`, {
 			completed
 		}).catch(error => {
 			console.error('Не удалось обновить задачу');
@@ -141,12 +144,12 @@ function App() {
 					active: history.location.pathname === '/',
 					icon: 'list',
 					name: 'Все задачи'
-				}] }
-				/>
+				}] }/>
 				{ lists ? (
 					<List items={ lists }
 					      onRemove={ id => {
 						      const newLists = lists.filter(item => item.id !== id);
+						      setActiveItem(lists.find(item => item.id === id));
 						      updateLists(newLists);
 					      } }
 					      onClickItem={ list => {

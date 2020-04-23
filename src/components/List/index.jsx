@@ -6,19 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import { Badge } from '../../components';
+import { Badge, host } from '../../components';
 
 import './List.scss';
 
 library.add(fas);
 
 const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }) => {
-	const removeList = id => {
+	const removeList = item => {
 		if (window.confirm('Вы действительно хотите удалить список?')) {
-			axios.delete('http://192.168.0.41:3001/lists/' + id).then(() => {
-				onRemove(id);
-			}).then(() => {
-				console.debug(`Список '${ activeItem.name }' успешно удален`);
+			axios.delete(`http://${ host.ip }:${ host.port }/lists/${ item.id }`).then(() => {
+				onRemove(item.id);
+				return item.name;
+			}).then(taskName => {
+				console.debug(`Список '${ taskName }' успешно удален`);
 			}).catch(error => {
 				console.error('Не удалось удалить список');
 				console.error(`Ошибка: ${ error }`);
@@ -50,7 +51,7 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 						<FontAwesomeIcon className={ 'list__remove-button' }
 						                 icon={ 'times' }
 						                 color={ 'transparent' }
-						                 onClick={ () => removeList(item.id) }/>
+						                 onClick={ () => removeList(item) }/>
 					) }
 				</li>
 			)) }

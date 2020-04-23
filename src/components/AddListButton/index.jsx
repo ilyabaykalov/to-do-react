@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 
-import { List, Badge } from '../../components';
+import { List, Badge, host } from '../../components';
 
 import './AddListButton.scss';
 
@@ -37,7 +37,7 @@ const AddListButton = ({ colors, onAdd }) => {
 
 		setIsLoading(true);
 
-		axios.post('http://192.168.0.41:3001/lists', {
+		axios.post(`http://${host.ip}:${host.port}/lists`, {
 			name: inputValue.capitalize(),
 			colorId: selectedColor
 		}).then(({ data }) => {

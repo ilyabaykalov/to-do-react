@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import { Task, AddTaskForm } from '../../components';
+import { Task, AddTaskForm, host } from '../../components';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -17,7 +17,7 @@ const Tasks = ({ list, onEditTitle, onAddTask, onRemoveTask, onEditTask, onCompl
 		const newTitle = window.prompt('Название списка', list.name);
 		if (newTitle) {
 			onEditTitle(list.id, newTitle);
-			axios.patch('http://192.168.0.41:3001/lists/' + list.id, {
+			axios.patch(`http://${ host.ip }:${ host.port }/lists/${ list.id }`, {
 				name: newTitle
 			}).then(() => {
 				console.debug(`Заголовок текущего списка изменён на ${ newTitle }`);
