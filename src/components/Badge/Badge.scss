@@ -1,38 +1,42 @@
+@import 'src/variables';
+
 .badge {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 30px;
+  min-width: 12px;
+  max-width: 12px;
+  min-height: 12px;
+  max-height: 12px;
+  margin-right: 13px;
+  border-radius: 50%;
 
   &--grey {
-    background-color: #c9d1d3;
+    background-color: $grey;
   }
 
   &--lime {
-    background-color: #b6e6bd;
+    background-color: $lime;
   }
 
   &--purple {
-    background-color: #c355f5;
+    background-color: $purple;
   }
 
   &--black {
-    background-color: #08001a;
+    background-color: $black;
   }
 
   &--red {
-    background-color: #ff6464;
+    background-color: $red;
   }
 
   &--green {
-    background-color: #42b883;
+    background-color: $green;
   }
 
   &--blue {
-    background-color: #64c4ed;
+    background-color: $blue;
   }
 
   &--pink {
-    background-color: #ffbbcc;
+    background-color: $pink;
   }
 }

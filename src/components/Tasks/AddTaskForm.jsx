@@ -20,7 +20,7 @@ const AddTaskForm = ({ list, onAddTask }) => {
 	const addTask = () => {
 		const newTask = {
 			listId: list.id,
-			text: inputValue,
+			text: inputValue.capitalize(),
 			completed: false
 		};
 		setIsLoading(true);
@@ -41,14 +41,14 @@ const AddTaskForm = ({ list, onAddTask }) => {
 		<div className='tasks__form'>
 			{ !visibleForm ? (
 				<div className='tasks__form-new' onClick={ toggleFormVisible }>
-					<FontAwesomeIcon icon={ 'plus' }
-					                 color={ '#7F7E7E' }/>
+					<FontAwesomeIcon className='icon'
+					                 icon={ 'plus' }/>
 					<span>Новая задача</span>
 				</div>
 			) : (
 				<div className='tasks__form-block'>
 					<input className='field'
-					       type='text'
+					       type='text' autoFocus
 					       placeholder='Текст задачи'
 					       value={ inputValue }
 					       onChange={ e => setInputValue(e.target.value) }/>

@@ -31,16 +31,17 @@ const Tasks = ({ list, onEditTitle, onAddTask, onRemoveTask, onEditTask, onCompl
 	return (
 		<div className='tasks'>
 			<Link to={ `/lists/${ list.id }` }>
-				<h2 className='tasks__title' style={ { color: list.color.hex } }>
-					{ list.name }
-					<FontAwesomeIcon icon='pen' onClick={ editTitle }/>
-				</h2>
+				<div className='tasks__header'>
+					<h2 className='tasks__header__title' style={ { color: list.color.hex } }>
+						{ list.name }
+					</h2>
+					<FontAwesomeIcon className='tasks__header__list-name-edit-button'
+					                 icon='pen'
+					                 onClick={ editTitle }/>
+				</div>
 			</Link>
 
 			<div className='tasks__items'>
-				{ !withoutEmpty && list.tasks && !list.tasks.length && (
-					<h2>Задачи отсутствуют</h2>
-				) }
 				{ list.tasks &&
 				list.tasks.map(task => (
 					<Task
@@ -52,6 +53,9 @@ const Tasks = ({ list, onEditTitle, onAddTask, onRemoveTask, onEditTask, onCompl
 						{ ...task }/>
 				)) }
 				<AddTaskForm key={ list.id } list={ list } onAddTask={ onAddTask }/>
+				{ !withoutEmpty && list.tasks && !list.tasks.length && (
+					<h2 className='no-tasks'>Задачи отсутствуют</h2>
+				) }
 			</div>
 		</div>
 	);

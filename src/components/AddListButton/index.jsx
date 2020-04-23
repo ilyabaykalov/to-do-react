@@ -38,7 +38,7 @@ const AddListButton = ({ colors, onAdd }) => {
 		setIsLoading(true);
 
 		axios.post('http://192.168.0.41:3001/lists', {
-			name: inputValue,
+			name: inputValue.capitalize(),
 			colorId: selectedColor
 		}).then(({ data }) => {
 			const color = colors.filter(c => c.id === selectedColor)[0];
@@ -59,24 +59,21 @@ const AddListButton = ({ colors, onAdd }) => {
 		<div className='add-list'>
 			<List onClick={ () => setVisiblePopup(true) }
 			      items={ [{
-				      className: 'list__add-button',
-				      // className: 'add-list__button',
-				      icon: { name: 'plus', color: '#7C7C7C' },
+				      className: 'add-list__button',
+				      icon: 'plus',
 				      name: 'Добавить список'
-			      }] }
-			/>
+			      }] }/>
 			{ visiblePopup && (
 				<div className='add-list__popup'>
 					<FontAwesomeIcon className={ 'add-list__popup__close-button' }
 					                 icon={ 'times-circle' }
-					                 color={ '#7F7E7E' }
 					                 onClick={ onClose }/>
 					<input className='field'
-					       type='text'
+					       type='text' autoFocus
 					       placeholder='Название списка'
 					       value={ inputValue }
 					       onChange={ e => setInputValue(e.target.value) }/>
-					<div className='add-list__popup-colors'>
+					<div className='add-list__popup__colors'>
 						{ colors.map(color => (
 							<Badge key={ color.id }
 							       className={ selectedColor === color.id && 'active' }

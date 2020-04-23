@@ -95,9 +95,15 @@
     },
     {
       "listId": 3,
-      "text": "Досмотреть Ходячих",
+      "text": "Досмотреть Ходячих мертвецов",
       "completed": false,
       "id": 21
+    },
+    {
+      "listId": 2,
+      "text": "Sdfsdf",
+      "completed": false,
+      "id": 22
     }
   ],
   "colors": [

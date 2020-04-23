@@ -1,43 +1,67 @@
+@import 'src/variables';
+
 .add-list {
+  &__button {
+    color: $btn-add-list-color;
+
+    &:hover {
+      color: $btn-add-list-color--hover;
+
+      .icon {
+        color: $btn-add-list-color--hover;
+      }
+    }
+  }
+
   &__popup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 250px;
     height: 150px;
-    width: 240px;
-    background: #ffffff;
-    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    background: $popup-background-color;
     border-radius: 10px;
-    padding: 18px;
-    box-sizing: border-box;
-    position: relative;
-    top: -25px;
-    left: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    position: absolute;
+    bottom: 30px;
 
-    .button {
-      width: 100%;
-      margin-top: 12px;
-    }
-
-    &-close-btn {
+    &__close-button {
+      min-width: 25px;
+      height: 25px;
       position: absolute;
-      right: -8px;
-      top: -8px;
+      right: -12px;
+      top: -12px;
       cursor: pointer;
+      color: $action-btn-color;
+
+      &:hover{
+        color: $action-btn-color--hover;
+      }
     }
 
-    &-colors {
+    &__colors {
       display: flex;
       justify-content: space-between;
-      margin-top: 12px;
 
       .badge {
-        width: 16px;
-        height: 16px;
-        cursor: pointer;
-        border: 2px solid transparent;
+        min-width: 25px;
+        min-height: 25px;
+        margin: 0;
+        border: 3px solid $white;
 
-        &.active {
-          border: 2px solid #525252;
+        &:hover {
+          border: 3px solid transparent;
         }
       }
+
+      .active {
+        border: 3px solid transparent;
+      }
+    }
+
+    &__button {
+      width: 100%;
     }
   }
 }

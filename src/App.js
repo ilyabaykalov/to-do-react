@@ -137,27 +137,25 @@ function App() {
 					history.push(`/`);
 				} } items={ [{
 					active: history.location.pathname === '/',
-					icon: { name: 'list', color: '#7C7C7C' },
+					icon: 'list',
 					name: 'Все задачи'
 				}] }
 				/>
 				{ lists ? (
-					<List
-						items={ lists }
-						onRemove={ id => {
-							const newLists = lists.filter(item => item.id !== id);
-							updateLists(newLists);
-						} }
-						onClickItem={ list => {
-							history.push(`/lists/${ list.id }`);
-						} }
-						activeItem={ activeItem }
-						isRemovable/>
+					<List items={ lists }
+					      onRemove={ id => {
+						      const newLists = lists.filter(item => item.id !== id);
+						      updateLists(newLists);
+					      } }
+					      onClickItem={ list => {
+						      history.push(`/lists/${ list.id }`);
+					      } }
+					      activeItem={ activeItem }
+					      isRemovable/>
 				) : (
 					<div className='loading'>
 						<FontAwesomeIcon className={ 'icon fa-spin' }
-						                 icon='spinner'
-						                 color='#7F7F7F'/>
+						                 icon='spinner'/>
 						<p>Загрузка...</p>
 					</div>
 				) }
@@ -167,15 +165,14 @@ function App() {
 			<div className='todo__tasks'>
 				<Route exact path='/'>
 					{ lists && lists.map(list => (
-						<Tasks
-							key={ list.id }
-							list={ list }
-							onAddTask={ onAddTask }
-							onEditTitle={ onEditListTitle }
-							onRemoveTask={ onRemoveTask }
-							onEditTask={ onEditTask }
-							onCompleteTask={ onCompleteTask }
-							withoutEmpty/>
+						<Tasks key={ list.id }
+						       list={ list }
+						       onAddTask={ onAddTask }
+						       onEditTitle={ onEditListTitle }
+						       onRemoveTask={ onRemoveTask }
+						       onEditTask={ onEditTask }
+						       onCompleteTask={ onCompleteTask }
+						       withoutEmpty/>
 					)) }
 				</Route>
 				<Route path='/lists/:id'>

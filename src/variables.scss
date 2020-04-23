@@ -1,0 +1,68 @@
+/* colors */
+$black: #000000;
+$white: #FFFFFF;
+$grey: #C9D1D3;
+
+$lime: #B6E6BD;
+$purple: #C355F5;
+$black: #08001A;
+$red: #FF6464;
+$green: #42B883;
+$blue: #64C4ED;
+$pink: #FFBBCC;
+
+$grey--light: lighten($grey, 10%);
+$green--light: lighten($green, 15%);
+$blue--light: lighten($blue, 30%);
+
+$grey--dark: #444444;
+
+/* sidebar */
+$sidebar-text-background-color: $blue--light;
+
+$sidebar-main-text-color: $black;
+$sidebar-main-icon-color: $grey;
+
+$sidebar-dark-text-color: $grey--dark;
+$sidebar-dark-icon-color: lighten($sidebar-dark-text-color, 30%);
+
+$sidebar-light-text-color: darken($grey--light, 10%);
+
+/* button */
+$btn-success-background-color: $green--light;
+$btn-success-background-color--hover: darken($btn-success-background-color, 5%);
+$btn-success-background-color--active: darken($btn-success-background-color, 10%);
+
+$btn-cancel-color: $grey--dark;
+$btn-cancel-background-color: lighten($grey, 15%);
+$btn-cancel-background-color--hover: darken($btn-cancel-background-color, 5%);
+$btn-cancel-background-color--active: darken($btn-cancel-background-color, 10%);
+
+$btn-add-list-color: darken($grey, 40%);
+$btn-add-list-color--hover: $sidebar-main-text-color;
+
+/* input */
+/*text*/
+$input-background-color: $white;
+$input-border-color: $grey--light;
+$input-border-color--focus: darken($input-border-color, 10%);
+
+/*checkbox*/
+$checkbox-background-color--checked: $green--light;
+$checkbox-border-color--checked: $checkbox-background-color--checked;
+$checkbox-background-color--hover: $grey--light;
+$checkbox-border-color--hover: $checkbox-background-color--hover;
+
+
+/* scrollbar */
+$scrollbar-thumb-background-color: $grey--light;
+
+/* popup */
+$popup-background-color: $white;
+
+/* action button */
+$action-btn-background-color: lighten($grey--light, 5%);
+$action-btn-background-color--hover: $grey--light;
+$action-btn-color: darken($grey, 10%);
+$action-btn-color--hover: darken($action-btn-color, 15%);
+

@@ -20,18 +20,21 @@ const Task = ({ id, text, completed, list, onRemove, onEdit, onComplete }) => {
 				       onChange={ onChangeCheckbox }/>
 				<label htmlFor={ `task-${ id }` }>
 					<FontAwesomeIcon className='tasks__items-row__complete-button'
-					                 icon='check'
-					                 color='#FFFFFF'/>
+					                 icon='check'/>
 				</label>
 			</div>
 			<p>{ text }</p>
 			<div className='tasks__items-row-actions'>
-				<FontAwesomeIcon className={ 'item__remove-button' }
-				                 icon={ 'pen' }
-				                 onClick={ () => onEdit(list.id, { id, text }) }/>
-				<FontAwesomeIcon className={ 'item__remove-button' }
-				                 icon={ 'times' }
-				                 onClick={ () => onRemove(list.id, id) }/>
+				<div>
+					<FontAwesomeIcon className={ 'tasks__items-row-actions__edit-button' }
+					                 icon={ 'pen' }
+					                 onClick={ () => onEdit(list.id, { id, text }) }/>
+				</div>
+				<div>
+					<FontAwesomeIcon className={ 'tasks__items-row-actions__remove-button' }
+					                 icon={ 'times' }
+					                 onClick={ () => onRemove(list.id, id) }/>
+				</div>
 			</div>
 		</div>
 	);

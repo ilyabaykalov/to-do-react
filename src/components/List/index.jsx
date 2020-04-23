@@ -38,13 +38,15 @@ const List = ({ items, isRemovable, onClick, onRemove, onClickItem, activeItem }
 				    onClick={ onClickItem ? () => onClickItem(item) : null }>
 					{ item.icon ?
 						<FontAwesomeIcon className={ 'icon' }
-						                 icon={ item.icon.name }
-						                 color={ item.icon.color }/> :
+						                 icon={ item.icon }/> :
 						<Badge color={ item.color.name }/>
 					}
-					<span>{ item.name }{ item.tasks && ` (${ item.tasks.length })` }</span>
+					<span>
+						{ item.name }
+						{ item.tasks && ` (${ item.tasks.filter(task => task.completed).length }/${ item.tasks.length })` }
+					</span>
 					{ isRemovable && (
-						<FontAwesomeIcon className={ 'lists__remove-button' }
+						<FontAwesomeIcon className={ 'list__remove-button' }
 						                 icon={ 'times' }
 						                 color={ 'transparent' }
 						                 onClick={ () => removeList(item.id) }/>
